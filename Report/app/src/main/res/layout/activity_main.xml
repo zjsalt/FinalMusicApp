@@ -1,27 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_width="match_parent"
     android:weightSum="10"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:background="@color/black"
-        android:backgroundTint="@null"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Button" />
-
-    <LinearLayout
+    <!-- ViewPager và TabLayout -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="1"></LinearLayout>
+        android:layout_weight="9.2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.2" >
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button" />
+
+            </androidx.viewpager.widget.ViewPager>
+
+            <!-- Nội dung của ScrollView -->
+            <!-- TODO: Thêm các thành phần khác trong ScrollView của bạn -->
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Nút cuối -->
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/tabLayout"
+        android:layout_weight="0.8"
+        app:tabBackground="@color/material_dynamic_tertiary70">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thư viện" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Khám Phá" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Playlist" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cá nhân" />
+    </com.google.android.material.tabs.TabLayout>
 
 </LinearLayout>
