@@ -1,6 +1,12 @@
 package tdtu.report.Model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "song")
 public class Song {
+    @PrimaryKey(autoGenerate = true)
+    private  int id;
     private String title;
     private Artist artist;
     private Album album;
@@ -50,6 +56,12 @@ public class Song {
         this.genre = genre;
     }
 
-    // Constructors, getters, and setters
-    // ...
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

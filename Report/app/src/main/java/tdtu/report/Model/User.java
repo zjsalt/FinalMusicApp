@@ -1,8 +1,13 @@
 package tdtu.report.Model;
 
-import java.util.List;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import java.util.List;
+@Entity(tableName = "user")
 public class User {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
     private String email;
     private String password;
@@ -47,6 +52,14 @@ public class User {
 
     public void setFavoritePlaylist(Playlist favoritePlaylist) {
         this.favoritePlaylist = favoritePlaylist;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     // Constructors, getters, and setters
     // ...
