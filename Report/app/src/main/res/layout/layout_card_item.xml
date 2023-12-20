@@ -7,7 +7,7 @@
     android:background="#8BC34A"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
-<!--Use this for Playlist/Album/Recently items in Home activity -->
+    <!--Use this for Playlist/Album/Recently items in Home activity -->
     <LinearLayout
         android:gravity="center"
         android:layout_width="150dp"
@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="Song 13245354" />
+            android:text="Song 13245354"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

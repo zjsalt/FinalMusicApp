@@ -4,8 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 <!--Use this for all list songs: Liked, Downloaded, Suggest-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvListSong"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvListSong"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
+
 </LinearLayout>
