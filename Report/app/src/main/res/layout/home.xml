@@ -6,7 +6,7 @@
     android:orientation="vertical">
 <!--This is a home layout but i don't know how to show item on it >< -->
     <FrameLayout
-        android:id="@+id/main"
+        android:id="@+id/main_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">

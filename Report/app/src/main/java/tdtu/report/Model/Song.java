@@ -13,6 +13,12 @@ public class Song {
     private String genre;
     private String audioPath;
     private int duration;
+//    private int image;
+//    public Song(int image, String title, String artist){
+//        this.image=image;
+//        this.title=title;
+//        this.artist.setName(artist);
+//    }
 
     public String getTitle(){
         return  title;
@@ -64,4 +70,11 @@ public class Song {
         this.id = id;
     }
 
+//    public int getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(int image) {
+//        this.image = image;
+//    }
 }

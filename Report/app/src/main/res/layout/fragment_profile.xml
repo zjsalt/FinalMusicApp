@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment"
-    android:padding="10dp">
+    tools:context=".Fragment.ProfileFragment"
+    android:padding="10dp"
+    android:id="@+id/flProfile">
 
     <LinearLayout
         android:layout_width="match_parent"
