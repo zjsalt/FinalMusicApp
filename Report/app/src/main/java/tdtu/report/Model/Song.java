@@ -6,42 +6,54 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "song")
 public class Song {
     @PrimaryKey(autoGenerate = true)
-    private  int id;
+    private int id;
     private String title;
-    private Artist artist;
-    private Album album;
+    private int idArtist; // Change the data type to String
+    private int album; // Change the data type to String
     private String genre;
     private String audioPath;
     private int duration;
 
+    public Song(String title, int idArtist, String audioPath) {
+        this.title = title;
+        this.idArtist = idArtist;
+        this.audioPath = audioPath;
+    }
+
     public String getTitle(){
         return  title;
     }
-    public Artist getArtist(){
-        return artist;
+
+    public int getIdArtist(){
+        return idArtist;
     }
-    public Album getAlbum(){
+
+    public int getAlbum(){
         return album;
     }
+
     public String getGenre(){
         return genre;
     }
+
     public String getAudioPath(){
         return audioPath;
     }
+
     public int getDuration(){
         return duration;
     }
+
     public void setTitle(String title){
         this.title = title;
     }
 
-    public void setAlbum(Album album) {
+    public void setAlbum(int album) {
         this.album = album;
     }
 
-    public void setArtist(Artist artist) {
-        this.artist = artist;
+    public void setIdArtist(int idArtist) { // Change the parameter type to String
+        this.idArtist = idArtist;
     }
 
     public void setAudioPath(String audioPath) {
@@ -63,5 +75,4 @@ public class Song {
     public void setId(int id) {
         this.id = id;
     }
-
 }

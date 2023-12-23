@@ -1,24 +1,49 @@
 package tdtu.report.Model;
 
-
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "album_t")
+@Entity(tableName = "album")
 public class Album {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int id; // Change the data type to String
     private String title;
-    private Artist artist;
+    private int artistId; // Change the data type to String
     private int year;
     private String image;
 
+    @Ignore
+    public Album() {
+    }
 
-    public int getId() {
+    @Ignore
+    public Album(String title) {
+        this.title = title;
+    }
+
+    public Album(String title, int artistId) { // Change the parameter type to String
+        this.title = title;
+        this.artistId = artistId;
+    }
+
+    // Uncomment the following constructor if needed
+    // @Ignore
+    // public Album(String id, String title, String artistId, int year, String image) {
+    //     this.id = id;
+    //     this.title = title;
+    //     this.artistId = artistId;
+    //     this.year = year;
+    //     this.image = image;
+    // }
+
+    // Getters and setters
+
+    public int getId() { // Change the return type to String
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id) { // Change the parameter type to String
         this.id = id;
     }
 
@@ -28,6 +53,14 @@ public class Album {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getArtistId() { // Change the return type to String
+        return artistId;
+    }
+
+    public void setArtistId(int artistId) { // Change the parameter type to String
+        this.artistId = artistId;
     }
 
     public int getYear() {
@@ -44,13 +77,5 @@ public class Album {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
     }
 }

@@ -1,6 +1,7 @@
 package tdtu.report.Model;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.List;
@@ -13,6 +14,26 @@ public class User {
     private String password;
     private List<Playlist> playlists;
     private Playlist favoritePlaylist;
+    public User(){}
+    @Ignore
+    public User(String name, String email, String password, List<Playlist> playlists, Playlist favoritePlaylist) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.playlists = playlists;
+        this.favoritePlaylist = favoritePlaylist;
+    }
+    @Ignore
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+    @Ignore
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     public String getName() {
         return name;

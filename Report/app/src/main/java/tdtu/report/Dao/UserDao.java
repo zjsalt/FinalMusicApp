@@ -26,4 +26,8 @@ public interface UserDao {
 
     @Update
     void update(User user);
+    @Query("SELECT * FROM user WHERE email = :email AND password = :password")
+    User getUserByEmailAndPassword(String email, String password);
+    @Query("SELECT * FROM user WHERE email = :email")
+    User getUserByEmail(String email);
 }

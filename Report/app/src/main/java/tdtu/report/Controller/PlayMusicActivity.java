@@ -3,76 +3,106 @@ package tdtu.report.Controller;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.AssetFileDescriptor;
-import android.media.AudioManager;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import tdtu.report.AppDatabase;
+import tdtu.report.Dao.AlbumDao;
+import tdtu.report.Dao.ArtistDao;
+import tdtu.report.Dao.SongDao;
 import tdtu.report.R;
+import tdtu.report.Repository.InsertDatabase;
 
 public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener {
 
+    private AppDatabase appDatabase;
     private MediaPlayer mediaPlayer;
     private List<String> playlist;
     private int currentSongIndex;
     private boolean isPlaying = false;
     private boolean isPaused = false;
     private int pausedPosition = 0;
+    private SongDao songDao;
+    private AlbumDao albumDao;
+    private ArtistDao artistDao;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_music);
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.play_music);
+    appDatabase =  AppDatabase.getInstance(getApplicationContext());
+    songDao = appDatabase.songDao();
+    artistDao = appDatabase.artistDao();
+    albumDao = appDatabase.albumDao();
+    InsertDatabase insertDatabase = new InsertDatabase(artistDao, songDao, albumDao);
+    insertDatabase.insertData();
 
-        // Initialize playlist
-        playlist = new ArrayList<>();
-        playlist.add("KhoaBietLy.mp3");
-        playlist.add("Roi Bo.mp3");
-        playlist.add("NgayMaiNguoiTaLayChong.mp3");
-        playlist.add("Trước .mp3");
+    // Initialize current song index
+    currentSongIndex = 0;
+    ImageButton ibPlaySong = findViewById(R.id.ibPlaySong);
+    ImageButton ibPreSong = findViewById(R.id.ibPreSong);
+    ImageButton ibPosSong = findViewById(R.id.ibPosSong);
 
-        // Initialize current song index
-        currentSongIndex = 0;
+    // Use AsyncTask to get song paths in the background
+    new AsyncTask<Void, Void, List<String>>() {
+        @Override
+        protected List<String> doInBackground(Void... voids) {
+            return songDao.getAllSongPaths();
+        }
 
-        Button toggleButton = findViewById(R.id.btnToggle);
-        Button preButton = findViewById(R.id.btnPre);
-        Button nextButton = findViewById(R.id.btnNext);
+        @Override
+        protected void onPostExecute(List<String> result) {
+            super.onPostExecute(result);
+            // Handle the result on the main thread
+            playlist = result;
 
-        toggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isPlaying) {
-                    pauseMusic();
+            if (!playlist.isEmpty()) {
+                playMusic();
+            } else {
+                Toast.makeText(PlayMusicActivity.this, "Playlist Empty", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }.execute();
+
+    // Initialize other UI elements and set up event listeners
+    ibPlaySong.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (isPlaying) {
+                pauseMusic();
+            } else {
+                if (isPaused) {
+                    resumeMusic();
                 } else {
-                    if (isPaused) {
-                        resumeMusic();
-                    } else {
-                        playMusic();
-                    }
+                    playMusic();
                 }
             }
-        });
+        }
+    });
 
-        preButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playPreviousSong();
-            }
-        });
+    ibPreSong.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            playPreviousSong();
+        }
+    });
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playNextSong();
-            }
-        });
-    }
+    ibPosSong.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            playNextSong();
+        }
+    });
+}
 
     private void playMusic() {
         try {
@@ -81,11 +111,17 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
             // Get the current song from the playlist
             String currentSong = playlist.get(currentSongIndex);
 
+            // Encode the file name to handle spaces and special characters
+//            String encodedFileName = currentSong.replace(" ", "%20");
+
             AssetFileDescriptor afd = getAssets().openFd("audiofiles/" + currentSong);
 
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_MEDIA)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .build());
             mediaPlayer.prepare();
             mediaPlayer.setOnCompletionListener(this);
             mediaPlayer.start();
@@ -94,12 +130,13 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
             isPaused = false;
 
             // Update button text
-            Button toggleButton = findViewById(R.id.btnToggle);
-            toggleButton.setText("Pause");
+            ImageButton ibPlaySong = findViewById(R.id.ibPlaySong);
+            ibPlaySong.setImageResource(R.drawable.ic_pause);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     private void pauseMusic() {
         if (mediaPlayer != null && isPlaying) {
@@ -109,8 +146,8 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
             isPaused = true;
 
             // Update button text
-            Button toggleButton = findViewById(R.id.btnToggle);
-            toggleButton.setText("Play");
+            ImageButton ibPlaySong = findViewById(R.id.ibPlaySong);
+            ibPlaySong.setImageResource(R.drawable.ic_play50);
         }
     }
 
@@ -122,8 +159,8 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
             isPaused = false;
 
             // Update button text
-            Button toggleButton = findViewById(R.id.btnToggle);
-            toggleButton.setText("Pause");
+            ImageButton ibPlaySong = findViewById(R.id.ibPlaySong);
+            ibPlaySong.setImageResource(R.drawable.ic_pause);
         }
     }
 
@@ -136,37 +173,31 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
             isPlaying = false;
             isPaused = false;
 
-            // Update button text
-            Button toggleButton = findViewById(R.id.btnToggle);
-            toggleButton.setText("Play");
+            ImageButton ibPlaySong = findViewById(R.id.ibPlaySong);
+            ibPlaySong.setImageResource(R.drawable.ic_play50);
         }
     }
 
     private void playPreviousSong() {
-        if (currentSongIndex > 0) {
-            currentSongIndex--;
-            stopMusic();
-            playMusic();
-        }
-        else if (currentSongIndex == 0 ){
+        if (currentSongIndex == 0 ){
             currentSongIndex = playlist.size()-1;
-            stopMusic();
-            playMusic();
         }
+        else {
+            currentSongIndex--;
+        }
+        stopMusic();
+        playMusic();
     }
 
     private void playNextSong() {
         if (currentSongIndex < playlist.size() - 1) {
             currentSongIndex++;
-            stopMusic();
-            playMusic();
         } else if (currentSongIndex == playlist.size()-1){
             // If it's the last song in the playlist, stop the music
             currentSongIndex = 0;
-            stopMusic();
-            playMusic();
-
         }
+        stopMusic();
+        playMusic();
     }
 
     @Override

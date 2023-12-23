@@ -26,4 +26,6 @@ public interface ArtistDao {
 
     @Update
     void update(Artist artist);
+    @Insert
+    void insertAll(List<Artist> artists);
 }
