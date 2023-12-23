@@ -30,6 +30,7 @@
                 android:layout_weight="1" />
 
             <ImageButton
+                android:id="@+id/ibSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -40,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvLikedSong"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content">
                 <LinearLayout
@@ -63,6 +65,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvDownloadedSong"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content">
                 <LinearLayout
@@ -72,10 +75,12 @@
                     android:background="@color/gray"
                     android:padding="10dp">
                     <ImageView
+                        android:id="@+id/ivItemImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_download"/>
                     <TextView
+                        android:id="@+id/tvTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
@@ -87,6 +92,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tvRecently"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nghe gần đây "
@@ -99,6 +105,7 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRecently"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -106,6 +113,7 @@
         </HorizontalScrollView>
 
         <TextView
+            android:id="@+id/tvPlaylist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Playlist "
@@ -118,6 +126,7 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPlaylist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -125,6 +134,7 @@
         </HorizontalScrollView>
 
         <TextView
+            android:id="@+id/tvAlbum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Album"
@@ -137,6 +147,7 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAlbum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
