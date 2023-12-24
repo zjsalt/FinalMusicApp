@@ -1,6 +1,7 @@
 package tdtu.report.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioAttributes;
@@ -13,12 +14,14 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import tdtu.report.AppDatabase;
 import tdtu.report.Dao.AlbumDao;
 import tdtu.report.Dao.ArtistDao;
 import tdtu.report.Dao.SongDao;
+import tdtu.report.DatabaseMigrations;
 import tdtu.report.R;
 import tdtu.report.Repository.InsertDatabase;
 
@@ -32,8 +35,7 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
     private boolean isPaused = false;
     private int pausedPosition = 0;
     private SongDao songDao;
-    private AlbumDao albumDao;
-    private ArtistDao artistDao;
+
 
 @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +43,19 @@ protected void onCreate(Bundle savedInstanceState) {
     setContentView(R.layout.play_music);
     appDatabase =  AppDatabase.getInstance(getApplicationContext());
     songDao = appDatabase.songDao();
-    artistDao = appDatabase.artistDao();
-    albumDao = appDatabase.albumDao();
-    InsertDatabase insertDatabase = new InsertDatabase(artistDao, songDao, albumDao);
-    insertDatabase.insertData();
+//    artistDao = appDatabase.artistDao();
+//    albumDao = appDatabase.albumDao();
+
 
     // Initialize current song index
     currentSongIndex = 0;
     ImageButton ibPlaySong = findViewById(R.id.ibPlaySong);
     ImageButton ibPreSong = findViewById(R.id.ibPreSong);
     ImageButton ibPosSong = findViewById(R.id.ibPosSong);
+    // Khởi tạo danh sách phát
+    playlist = new ArrayList<>();
 
-    // Use AsyncTask to get song paths in the background
+    // Thực hiện AsyncTask để lấy danh sách bài hát từ cơ sở dữ liệu
     new AsyncTask<Void, Void, List<String>>() {
         @Override
         protected List<String> doInBackground(Void... voids) {
@@ -62,7 +65,7 @@ protected void onCreate(Bundle savedInstanceState) {
         @Override
         protected void onPostExecute(List<String> result) {
             super.onPostExecute(result);
-            // Handle the result on the main thread
+            // Gán danh sách bài hát vào biến toàn cục
             playlist = result;
 
             if (!playlist.isEmpty()) {
@@ -72,6 +75,7 @@ protected void onCreate(Bundle savedInstanceState) {
             }
         }
     }.execute();
+
 
     // Initialize other UI elements and set up event listeners
     ibPlaySong.setOnClickListener(new View.OnClickListener() {

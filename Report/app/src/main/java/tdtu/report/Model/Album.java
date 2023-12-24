@@ -27,15 +27,6 @@ public class Album {
         this.artistId = artistId;
     }
 
-    // Uncomment the following constructor if needed
-    // @Ignore
-    // public Album(String id, String title, String artistId, int year, String image) {
-    //     this.id = id;
-    //     this.title = title;
-    //     this.artistId = artistId;
-    //     this.year = year;
-    //     this.image = image;
-    // }
 
     // Getters and setters
 

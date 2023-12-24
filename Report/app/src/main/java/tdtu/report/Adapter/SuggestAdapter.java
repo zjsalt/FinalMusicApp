@@ -53,7 +53,7 @@ public class SuggestAdapter extends RecyclerView.Adapter<SuggestAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.cardView);
-            ivSongImage = itemView.findViewById(R.id.ivSongImage);
+//            ivSongImage = itemView.findViewById(R.id.ivSongImage);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             subtitleTextView = itemView.findViewById(R.id.subtitleTextView);
         }

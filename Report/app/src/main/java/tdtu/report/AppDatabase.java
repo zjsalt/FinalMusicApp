@@ -21,7 +21,7 @@ import tdtu.report.Model.Playlist;
 import tdtu.report.Model.Song;
 import tdtu.report.Model.User;
 //Album.class,
-@Database(entities = {Artist.class, Playlist.class, User.class, Song.class, Album.class}, version = 1)
+@Database(entities = {Artist.class, Playlist.class, User.class, Song.class, Album.class}, version = 4)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -39,9 +39,28 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DATABASE_NAME)
                     .fallbackToDestructiveMigration()
+                    .addMigrations(DatabaseMigrations.MIGRATION_2_3)
                     .build();
         }
         return instance;
     }
+//    public static synchronized AppDatabase getInstance(Context context) {
+//        if (instance == null) {
+//            Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DATABASE_NAME)
+//                    .fallbackToDestructiveMigration()
+//                    .build();
+//
+//        }
+//        return instance;
+//    }
+//public static synchronized AppDatabase getInstance(Context context) {
+//    if (instance == null) {
+//        instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DATABASE_NAME)
+//                .fallbackToDestructiveMigration()
+//                .build();
+//    }
+//    return instance;
+//}
+
 
 }

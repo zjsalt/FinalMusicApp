@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageButton
+            android:id="@+id/down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_down"
@@ -18,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
         <ImageButton
+            android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_ellipsis"
@@ -25,6 +27,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/ivSongImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/avt"
@@ -36,6 +39,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageButton
+            android:id="@+id/ibShareSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -44,6 +48,7 @@
             android:layout_gravity="center_vertical"/>
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -53,6 +58,7 @@
             android:textColor="@color/black"/>
 
         <ImageButton
+            android:id="@+id/ibLikeSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -62,6 +68,7 @@
     </LinearLayout>
 
     <ProgressBar
+        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -70,6 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:00"
@@ -81,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
         <TextView
+            android:id="@+id/end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:00"
@@ -95,6 +104,7 @@
         android:paddingBottom="10dp">
 
         <ImageButton
+            android:id="@+id/ibRandomSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -117,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/white"
-            android:src="@drawable/ic_play50"
+            android:src="@drawable/ic_pause"
             android:layout_gravity="center_vertical"/>
 
         <ImageButton
@@ -130,6 +140,7 @@
             android:layout_gravity="center_vertical"/>
 
         <ImageButton
+            android:id="@+id/ibRepeatSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -145,6 +156,7 @@
         android:paddingBottom="10dp">
 
         <ImageButton
+            android:id="@+id/ibComment"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -153,6 +165,7 @@
             android:layout_gravity="center_vertical"/>
 
         <ImageButton
+            android:id="@+id/ibAddPlaylist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -161,6 +174,7 @@
             android:layout_gravity="center_vertical"/>
 
         <ImageButton
+            android:id="@+id/ibQualitySong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -169,6 +183,7 @@
             android:layout_gravity="center_vertical"/>
 
         <ImageButton
+            android:id="@+id/ibDownloadSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -177,6 +192,7 @@
             android:layout_gravity="center_vertical"/>
 
         <ImageButton
+            android:id="@+id/ibPlaylistSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -8,21 +8,39 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
-import tdtu.report.HomeFragment;
+
+import tdtu.report.AppDatabase;
+import tdtu.report.Dao.AlbumDao;
+import tdtu.report.Dao.ArtistDao;
+import tdtu.report.Dao.SongDao;
+import tdtu.report.Fragment.HomeFragment;
 import tdtu.report.R;
+import tdtu.report.Repository.InsertDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ViewPager viewPager;
+//    private ViewPager viewPager;
     private TabLayout tabLayout;
+    private SongDao songDao;
+    private AlbumDao albumDao;
+    private ArtistDao artistDao;
+    private AppDatabase appDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        appDatabase =  AppDatabase.getInstance(getApplicationContext());
+        songDao = appDatabase.songDao();
+        artistDao = appDatabase.artistDao();
+        albumDao = appDatabase.albumDao();
+        InsertDatabase insertDatabase = new InsertDatabase(artistDao, songDao, albumDao);
+        insertDatabase.insertData();
+
         HomeFragment homeFragment  = new HomeFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,homeFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment,homeFragment).commit();
         tabLayout = findViewById(R.id.tabLayout);
         if(tabLayout!=null && tabLayout.getTabCount()>=4){
             TabLayout.Tab tabPersonal = tabLayout.getTabAt(3);

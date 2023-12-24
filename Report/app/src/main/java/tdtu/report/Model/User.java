@@ -1,5 +1,6 @@
 package tdtu.report.Model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -7,16 +8,17 @@ import androidx.room.PrimaryKey;
 import java.util.List;
 @Entity(tableName = "user")
 public class User {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    private String name;
+    @PrimaryKey
+    @NonNull
     private String email;
+    private String name;
+
     private String password;
     private List<Playlist> playlists;
-    private Playlist favoritePlaylist;
+    private List<Song> favoritePlaylist;
     public User(){}
     @Ignore
-    public User(String name, String email, String password, List<Playlist> playlists, Playlist favoritePlaylist) {
+    public User(String name, String email, String password, List<Playlist> playlists, List<Song> favoritePlaylist) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -51,7 +53,7 @@ public class User {
         return playlists;
     }
 
-    public Playlist getFavoritePlaylist() {
+    public List<Song> getFavoritePlaylist() {
         return favoritePlaylist;
     }
 
@@ -71,17 +73,11 @@ public class User {
         this.playlists = playlists;
     }
 
-    public void setFavoritePlaylist(Playlist favoritePlaylist) {
+    public void setFavoritePlaylist(List<Song> favoritePlaylist) {
         this.favoritePlaylist = favoritePlaylist;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
     // Constructors, getters, and setters
     // ...
 }

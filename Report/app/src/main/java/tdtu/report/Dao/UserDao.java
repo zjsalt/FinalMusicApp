@@ -15,8 +15,8 @@ public interface UserDao {
     @Query("SELECT * FROM user")
     List<User> getAllUsers();
 
-    @Query("SELECT * FROM user WHERE id = :userId")
-    User getUserById(String userId);
+    @Query("SELECT * FROM user WHERE email = :email")
+    User getUserByEmail(String email);
 
     @Insert
     void insert(User user);
@@ -26,8 +26,7 @@ public interface UserDao {
 
     @Update
     void update(User user);
+
     @Query("SELECT * FROM user WHERE email = :email AND password = :password")
     User getUserByEmailAndPassword(String email, String password);
-    @Query("SELECT * FROM user WHERE email = :email")
-    User getUserByEmail(String email);
 }

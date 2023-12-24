@@ -2,13 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="HomeActivity">
+        <State />
+      </entry>
       <entry key="MainActivity">
         <State />
       </entry>
-      <entry key="MusicActivity">
+      <entry key="PlayMusicActivity">
         <State />
       </entry>
-      <entry key="PlayMusicActivity">
+      <entry key="RegisterActivity">
+        <State />
+      </entry>
+      <entry key="SongLyricsActivity">
         <State />
       </entry>
       <entry key="app">

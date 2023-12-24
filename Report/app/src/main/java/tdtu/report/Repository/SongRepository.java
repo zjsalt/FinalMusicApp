@@ -33,7 +33,7 @@ public class SongRepository {
         songDao.insertAll(songs);
     }
 
-    public List<Song> getSongsByAlbum(Album album) {
-        return songDao.getSongsByAlbum(album);
-    }
+//    public String getSongsByAlbumId(Album album) {
+//        return songDao.getSAlbumId(album);
+//    }
 }

@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     id("com.android.application")
 }
@@ -32,6 +34,12 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    packagingOptions {
+        exclude("META-INF/LICENSE.md")
+        exclude("META-INF/NOTICE.md")
+
+    }
 }
 
 dependencies {
@@ -43,10 +51,12 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.8")
     implementation("androidx.room:room-runtime:2.4.0")
     annotationProcessor("androidx.room:room-compiler:2.4.0")
+    implementation("com.sun.mail:android-mail:1.6.7")
+    implementation("com.sun.mail:android-activation:1.6.7")
 
-    // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    //    // Retrofit
+    //    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    //    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // ExoPlayer
     implementation("com.google.android.exoplayer:exoplayer:2.15.1")
@@ -58,7 +68,7 @@ dependencies {
         resolutionStrategy {
             eachDependency {
                 if ((requested.group == "org.jetbrains.kotlin") && (requested.name.startsWith("kotlin-stdlib"))) {
-                    useVersion("1.6.10")
+                    useVersion("1.9.0")
                 }
             }
         }
