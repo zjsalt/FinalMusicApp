@@ -13,7 +13,7 @@ public class Song {
     @PrimaryKey(autoGenerate = true)
     private  int id;
     private String title;
-    private int artistId; // Thay vì Artist object, sử dụng String để lưu trữ artistId
+    private int artistId;
     private int albumId;
     private String genre;
     @NonNull

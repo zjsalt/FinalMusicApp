@@ -43,19 +43,63 @@ public class InsertDatabase {
         protected Void doInBackground(Void... voids) {
             // Thêm dữ liệu nghệ sĩ
             Artist artist1 = new Artist("Anh Tú");
-            Artist artist2 = new Artist("Hòa Minzy");
             artistDao.insert(artist1);
-            artistDao.insert(artist2);
+            Song song1 = new Song("Khoa Biet Ly", artist1.getId(), "KhoaBietLy.mp3");
+            songDao.insert(song1);
+            songDao.insert(new Song("Ngày Mai Người Ta Lấy Chồng",artist1.getId(),"NgayMaiNguoiTaLayChong.mp3"));
+
+
+            Artist artist = new Artist("Hòa Minzy");
+            artistDao.insert(artist);
+            Song song = new Song("Rời Bỏ", artist1.getId(), "Roi Bo.mp3");
+            songDao.insert(song);
+            songDao.insert(new Song("Bật Tình Yêu Lên", artist.getId(), "Bat Tinh Yeu Len.mp3"));
+
+
+
+            artist = new Artist("HIEUTHUHAI");
+            artistDao.insert(artist);
+            songDao.insert(new Song("Ngủ Một Mình", artist.getId(), "Ngu mot minh.mp3"));
+
+            artist = new Artist("WrenEvans");
+            artistDao.insert(artist);
+            songDao.insert(new Song("Từng Quen", artist.getId(), "TungQuen.mp3"));
+
+
+
+            artist = new Artist("Mono");
+            artistDao.insert(artist);
+            songDao.insert(new Song("Waiting For You", artist.getId(), "Waiting For You.mp3"));
+
+
+            artist = new Artist("Sơn Tùng MTP");
+            artistDao.insert(artist);
+            songDao.insert(new Song("Muộn Rồi Mà Sao Còn", artist.getId(), "Muon roi ma sao con.mp3"));
+
+
+            artist = new Artist("Hoàng Thùy Linh");
+            artistDao.insert(artist);
+            songDao.insert(new Song("See Tình", artist.getId(), "See tinh.mp3"));
+
+
+            artist = new Artist("Olew");
+            artistDao.insert(artist);
+            songDao.insert(new Song("Rồi Ta Sẽ Ngắm Pháo Hoa Cùng Nhau", artist.getId(), "Roi ta se ngam phap hoa cung nhau.mp3"));
+
+
+
 
             // Thêm dữ liệu bài hát
-            Song song1 = new Song("Khoa Biet Ly", artist1.getId(), "KhoaBietLy.mp3");
-            Song song2 = new Song("Truoc khi em ton tai", artist1.getId(), "Truoc khi em ton tai.mp3");
-            songDao.insert(song1);
-            songDao.insert(song2);
+//            Song song3 = new Song("Truoc khi em ton tai", artist1.getId(), "Truoc khi em ton tai.mp3");
+//            Song song4 = new Song("Truoc khi em ton tai", artist1.getId(), "Truoc khi em ton tai.mp3");
+//            Song song5 = new Song("Truoc khi em ton tai", artist1.getId(), "Truoc khi em ton tai.mp3");
+//            Song song6 = new Song("Truoc khi em ton tai", artist1.getId(), "Truoc khi em ton tai.mp3");
+//            Song song7 = new Song("Truoc khi em ton tai", artist1.getId(), "Truoc khi em ton tai.mp3");
+//
 
             // Thêm dữ liệu album
             Album album1 = new Album("Album 1", artist1.getId());
-            Album album2 = new Album("Album 2", artist2.getId());
+            Album album2 = new Album("Album 2", artist.getId());
             albumDao.insert(album1);
             albumDao.insert(album2);
 

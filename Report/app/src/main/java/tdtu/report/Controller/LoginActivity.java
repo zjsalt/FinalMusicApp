@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import tdtu.report.AppDatabase;
+import tdtu.report.Database.AppDatabase;
 import tdtu.report.Dao.UserDao;
 import tdtu.report.R;
 import tdtu.report.ViewModel.LoginViewModel;

@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import tdtu.report.AppDatabase;
+import tdtu.report.Database.AppDatabase;
 import tdtu.report.Dao.AlbumDao;
 import tdtu.report.Dao.ArtistDao;
 import tdtu.report.Dao.SongDao;
 import tdtu.report.Fragment.HomeFragment;
+import tdtu.report.Fragment.PlayMusicFragment;
+import tdtu.report.Fragment.PlaylistFragment;
 import tdtu.report.Fragment.ProfileFragment;
 import tdtu.report.Fragment.SuggestFragment;
 import tdtu.report.R;
@@ -56,6 +58,12 @@ public class HomeActivity extends AppCompatActivity {
                 selectedFragment = getSupportFragmentManager().findFragmentByTag(ProfileFragment.class.getSimpleName());
                 if (selectedFragment == null) {
                     selectedFragment = new ProfileFragment();
+                }
+            }
+            else if (item.getItemId() == R.id.music) {
+                selectedFragment = getSupportFragmentManager().findFragmentByTag(PlayMusicFragment.class.getSimpleName());
+                if (selectedFragment == null) {
+                    selectedFragment = new PlaylistFragment();
                 }
             }
 

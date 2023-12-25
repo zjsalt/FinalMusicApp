@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
-import tdtu.report.AppDatabase;
+import tdtu.report.Database.AppDatabase;
 import tdtu.report.Dao.AlbumDao;
 import tdtu.report.Dao.ArtistDao;
 import tdtu.report.Dao.SongDao;

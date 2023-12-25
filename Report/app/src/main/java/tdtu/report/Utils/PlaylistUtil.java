@@ -10,9 +10,11 @@ public class PlaylistUtil {
         this.playlist = playlist;
         this.currentPosition = 0;
     }
+
     public int getCurrentPosition() {
         return currentPosition;
     }
+
     public String getCurrentSong() {
         if (currentPosition >= 0 && currentPosition < playlist.size()) {
             return playlist.get(currentPosition);
@@ -29,7 +31,7 @@ public class PlaylistUtil {
         if (currentPosition < playlist.size() - 1) {
             currentPosition++;
         } else {
-            currentPosition = 0; // Wrap around to the beginning
+            currentPosition = 0; // Stop playback if it's the last song
         }
     }
 
@@ -37,7 +39,20 @@ public class PlaylistUtil {
         if (currentPosition > 0) {
             currentPosition--;
         } else {
-            currentPosition = playlist.size() - 1; // Wrap around to the end
+            currentPosition = playlist.size() - 1; // Play the last song if at the beginning
         }
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+
+    public int findPositionByAudioPath(String audioPath) {
+        for (int i = 0; i < playlist.size(); i++) {
+            if (audioPath.equals(playlist.get(i))) {
+                return i;
+            }
+        }
+        return -1; // Return -1 if the audioPath is not found in the playlist
     }
 }

@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
 import java.util.List;
 @Entity(tableName = "user")
 public class User {
@@ -77,6 +78,12 @@ public class User {
         this.favoritePlaylist = favoritePlaylist;
     }
 
+    public void addToFavoritePlaylist(Song song) {
+        if (favoritePlaylist == null) {
+            favoritePlaylist = new ArrayList<>();
+        }
+        favoritePlaylist.add(song);
+    }
 
     // Constructors, getters, and setters
     // ...

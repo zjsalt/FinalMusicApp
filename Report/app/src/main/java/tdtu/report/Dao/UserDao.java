@@ -21,7 +21,8 @@ public interface UserDao {
 
 
     @Query("SELECT * FROM user WHERE email = :email")
-    User getUserByEmail(String email);
+    LiveData<User> getUserByEmail(String email);
+
 
 
     @Delete
@@ -29,7 +30,8 @@ public interface UserDao {
 
     @Update
     void update(User user);
-
+    @Query("DELETE FROM user")
+    void clearLoggedInUser();
 
 
     @Query("SELECT * FROM user WHERE email = :email AND password = :password")

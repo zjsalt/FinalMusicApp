@@ -54,7 +54,8 @@ public interface SongDao {
 
     @Query("UPDATE song SET playlist = :newPlaylist WHERE audioPath = :audioPath")
     void setPlaylistForSong(String audioPath, String newPlaylist);
-
+    @Query("SELECT title FROM song WHERE audioPath = :audioPath")
+    String getSongTitleByAudioPath(String audioPath);
 
 //    @Query("UPDATE song SET playlist = :newPlaylist")
 //    void setPlaylist(List<String> newPlaylist);

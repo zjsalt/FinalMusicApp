@@ -3,7 +3,6 @@ package tdtu.report.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,9 +17,16 @@ import tdtu.report.R;
 
 public class SuggestAdapter extends RecyclerView.Adapter<SuggestAdapter.ViewHolder> {
 
-    List<Song> dataList;
-    public SuggestAdapter(List<Song> dataList) {
+    private List<Song> dataList;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, Song song);
+    }
+
+    public SuggestAdapter(List<Song> dataList, OnItemClickListener listener) {
         this.dataList = dataList;
+        this.mListener = listener;
     }
 
     @NonNull
@@ -32,14 +38,18 @@ public class SuggestAdapter extends RecyclerView.Adapter<SuggestAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Song song = dataList.get(position);
-        // Get the Song object for the current position
+        holder.bindData(dataList.get(position));
 
-        // Set the title for the item
-
-//        holder.ivSongImage.setImageResource(data.getImage());
-        holder.titleTextView.setText(song.getTitle());
-//        holder.subtitleTextView.setText(data.getArtist().getId());
+        // Đảm bảo thiết lập click listener cho itemView
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION && mListener != null) {
+                    mListener.onItemClick(adapterPosition, dataList.get(adapterPosition));
+                }
+            }
+        });
     }
 
     @Override
@@ -47,24 +57,38 @@ public class SuggestAdapter extends RecyclerView.Adapter<SuggestAdapter.ViewHold
         return dataList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cardView;
-        ImageView ivSongImage;
+        private ImageView ivSongImage;
         private TextView titleTextView;
         private TextView subtitleTextView;
-        Button btMore;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.cardView);
-//            ivSongImage = itemView.findViewById(R.id.ivSongImage);
+            ivSongImage = itemView.findViewById(R.id.ivSongImage);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             subtitleTextView = itemView.findViewById(R.id.subtitleTextView);
         }
+
+        public void bindData(Song song) {
+            titleTextView.setText(song.getTitle());
+        }
     }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
     public Song getSongAtPosition(int position) {
         if (dataList != null && position >= 0 && position < dataList.size()) {
             return dataList.get(position);
         }
         return null;
+    }
+
+    // Hàm cập nhật dữ liệu cho Adapter
+    public void setDataList(List<Song> newDataList) {
+        dataList = newDataList;
+        notifyDataSetChanged();
     }
 }

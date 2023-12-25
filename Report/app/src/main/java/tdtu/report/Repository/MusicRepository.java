@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import tdtu.report.AppDatabase;
+import tdtu.report.Database.AppDatabase;
 import tdtu.report.Dao.SongDao;
 import tdtu.report.Model.Song;
 

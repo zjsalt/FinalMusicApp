@@ -4,15 +4,20 @@ import android.content.Context;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import tdtu.report.Adapter.SuggestAdapter;
+import tdtu.report.Model.Song;
+
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+
     private OnItemClickListener mListener;
     private GestureDetector mGestureDetector;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, int position, Song song);
         void onLongItemClick(View view, int position);
     }
 
@@ -21,7 +26,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
         mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
-                return true;
+                return false;
             }
 
             @Override
@@ -38,7 +43,9 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
     public boolean onInterceptTouchEvent(@NonNull RecyclerView view, @NonNull MotionEvent e) {
         View childView = view.findChildViewUnder(e.getX(), e.getY());
         if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
-            mListener.onItemClick(childView, view.getChildAdapterPosition(childView));
+            int position = view.getChildAdapterPosition(childView);
+            Song selectedSong = ((SuggestAdapter) view.getAdapter()).getSongAtPosition(position);
+            mListener.onItemClick(childView, position, selectedSong);
             return true;
         }
         return false;

@@ -7,20 +7,24 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import tdtu.report.AppDatabase;
 import tdtu.report.Dao.UserDao;
+import tdtu.report.Database.AppDatabase;
+import tdtu.report.Database.AppPreferences;
 import tdtu.report.Model.User;
 
 public class LoginViewModel extends ViewModel {
     private UserDao userDao;
     private MutableLiveData<Boolean> loginResult = new MutableLiveData<>();
     private MutableLiveData<User> loggedInUser = new MutableLiveData<>();
+    private AppPreferences appPreferences;
     public LoginViewModel() {
         super();
     }
     public LoginViewModel(@NonNull Application application, UserDao userDao) {
         super();
         this.userDao = userDao;
+        this.appPreferences = AppPreferences.getInstance(application);
+
     }
 
     public LoginViewModel(@NonNull Application application) {
@@ -39,18 +43,21 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void loginUser(String email, String password) {
-        new LoginAsyncTask(userDao, loginResult, loggedInUser).execute(email, password);
+        new LoginAsyncTask(userDao, loginResult, loggedInUser,appPreferences).execute(email, password);
     }
 
     private static class LoginAsyncTask extends AsyncTask<String, Void, User> {
         private UserDao userDao;
         private MutableLiveData<Boolean> loginResult;
         private MutableLiveData<User> loggedInUser;
+        private AppPreferences appPreferences;
 
-        LoginAsyncTask(UserDao userDao, MutableLiveData<Boolean> loginResult, MutableLiveData<User> loggedInUser) {
+
+        LoginAsyncTask(UserDao userDao, MutableLiveData<Boolean> loginResult, MutableLiveData<User> loggedInUser, AppPreferences appPreferences) {
             this.userDao = userDao;
             this.loginResult = loginResult;
             this.loggedInUser = loggedInUser;
+            this.appPreferences = appPreferences;
         }
 
         @Override
@@ -70,6 +77,8 @@ public class LoginViewModel extends ViewModel {
                 // Login successful
                 loginResult.setValue(true);
                 loggedInUser.setValue(user);
+                // Lưu thông tin người dùng đã đăng nhập vào SharedPreferences
+                appPreferences.setLoggedInUserEmail(user.getEmail());
             } else {
                 // Login failed
                 loginResult.setValue(false);

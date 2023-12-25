@@ -5,15 +5,17 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import tdtu.report.AppDatabase;
+import tdtu.report.Database.AppDatabase;
 import tdtu.report.Dao.UserDao;
 import tdtu.report.Model.User;
+
 public class RegisterViewModel extends AndroidViewModel {
     private UserDao userDao;
     private MutableLiveData<Boolean> registrationResult = new MutableLiveData<>();
-
+    private User[] users;
 
     public RegisterViewModel(Application application) {
         super(application);
@@ -26,45 +28,41 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public void registerUser(String name, String email, String password, String confirmPassword) {
-        new RegisterAsyncTask(userDao, registrationResult).execute(new User(name, email, password));
-
-        // For password confirmation and length validation, you can do it here before calling AsyncTask
-        // Example: if (password.equals(confirmPassword) && password.length() > 6) { ... }
+        users = new User[]{new User(name, email, password)};
+        new RegisterAsyncTask(userDao, registrationResult, users).execute(users);
     }
 
     private static class RegisterAsyncTask extends AsyncTask<User, Void, Boolean> {
         private UserDao userDao;
         private MutableLiveData<Boolean> registrationResult;
+        private User[] users;
 
-        RegisterAsyncTask(UserDao userDao, MutableLiveData<Boolean> registrationResult) {
+        RegisterAsyncTask(UserDao userDao, MutableLiveData<Boolean> registrationResult, User[] users) {
             this.userDao = userDao;
             this.registrationResult = registrationResult;
+            this.users = users;
         }
 
         @Override
         protected Boolean doInBackground(User... users) {
-            if (userDao == null) {
-                Log.d("RegisterViewModel:", "userDao is null");
+            if (userDao == null || users.length == 0) {
+                Log.d("RegisterViewModel:", "userDao is null or empty users array");
                 return false;
             }
 
-            User user = userDao.getUserByEmail(users[0].getEmail());
-
-            // Check if the email already exists
-            if (user != null) {
-                Log.d("RegisterViewModel:", "user is exists");
-                return false; // Email already exists
-            }
-
-            // Insert the user into the database
-            userDao.insert(users[0]);
-            return true; // Registration successful
+            // Check if the user already exists
+            LiveData<User> userLiveData = userDao.getUserByEmail(users[0].getEmail());
+            User user = userLiveData.getValue();
+            return user == null;
         }
 
         @Override
         protected void onPostExecute(Boolean isSuccess) {
+            if (isSuccess) {
+                // Insert the user into the database
+                userDao.insert(users[0]);
+            }
             registrationResult.setValue(isSuccess);
         }
     }
 }
-

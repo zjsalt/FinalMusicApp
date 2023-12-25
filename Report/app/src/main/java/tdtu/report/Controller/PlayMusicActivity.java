@@ -2,6 +2,7 @@ package tdtu.report.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
+import tdtu.report.Database.AppPreferences;
 import tdtu.report.R;
 import tdtu.report.Utils.MusicUtil;
 import tdtu.report.Utils.PlaylistUtil;
@@ -24,7 +26,8 @@ public class PlayMusicActivity extends AppCompatActivity {
     private MusicUtil musicUtil;
     private MusicViewModel musicViewModel;
     private PlaylistUtil playlistUtil;
-    private  ImageButton ibPlaySong,ibPreSong,ibPosSong, down;
+    private  ImageButton ibPlaySong,ibPreSong,ibPosSong, down, ibLikeSong, ibRandomSong, ibRepeatSong;
+    private AppPreferences appPreferences;
 
 
     @Override
@@ -39,11 +42,18 @@ public class PlayMusicActivity extends AppCompatActivity {
         ibPreSong = findViewById(R.id.ibPreSong);
         ibPosSong = findViewById(R.id.ibPosSong);
         down = findViewById(R.id.ibDownloadSong);
+        ibLikeSong = findViewById(R.id.ibLikeSong);
+        ibRandomSong = findViewById(R.id.ibRandomSong);
+        ibRepeatSong = findViewById(R.id.ibRepeatSong);
         SeekBar seekBar = findViewById(R.id.seekBar);
         TextView tvTitle = findViewById(R.id.tvTitle);
         TextView start = findViewById(R.id.start);
         TextView end = findViewById(R.id.end);
-
+        // Trong PlayMusicActivity
+        int position = getIntent().getIntExtra("position", -1);
+        String path = getIntent().getStringExtra("audioPath");
+        Log.d("PlayMusicActivity", "Selected position: " + position);
+        Log.d("PlayMusicActivity", "Selected audioPath: " + path);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("audioPath")) {
@@ -60,7 +70,7 @@ public class PlayMusicActivity extends AppCompatActivity {
                         playlistUtil.playPrevious();
 
                         // Create a new instance of MusicUtil and pass the PlaylistUtil
-                        musicUtil = new MusicUtil(PlayMusicActivity.this, playlistUtil, ibPlaySong, tvTitle,seekBar, start, end);
+                        musicUtil = new MusicUtil(PlayMusicActivity.this, position, audioPath, playlistUtil, ibPlaySong, tvTitle, seekBar, start, end, ibLikeSong, musicViewModel);
                         musicUtil.playMusic();
 
                         // Update the TextViews from SeekBar
@@ -120,6 +130,34 @@ public class PlayMusicActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"music null",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+//        ibRandomSong.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(musicUtil!= null){
+//                    musicUtil.toggleShuffle();
+//                }
+//                else{
+//                    Toast.makeText(getApplicationContext(),"music null",Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+
+
+
+        appPreferences = AppPreferences.getInstance(this);
+
+//        Lấy email của người dùng đã đăng nhập từ SharedPreferences
+        String loggedInUserEmail = appPreferences.getLoggedInUserEmail();
+        ibLikeSong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (musicUtil != null) {
+                    // Call the addSongToFavorites method when the "Like" button is clicked
+                    musicUtil.addOrRemoveSongFromFavorites();
                 }
             }
         });

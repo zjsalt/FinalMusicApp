@@ -5,19 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
-
 import tdtu.report.Model.CardItem2;
 import tdtu.report.R;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
-    private List<CardItem2> dataList; // Thay YourDataModel bằng lớp dữ liệu thực của bạn
+    private List<CardItem2> dataList;
 
     public HomeAdapter(List<CardItem2> dataList) {
         this.dataList = dataList;
@@ -26,7 +23,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -39,7 +36,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return dataList != null ? dataList.size() : 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -55,4 +52,3 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
     }
 }
-
