@@ -34,7 +34,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CardItem2 data = dataList.get(position);
         holder.ivItemImage.setImageResource(data.getImageView());
-        holder.tvTitle.setText(data.getTitle());
+        holder.tvTitle.setText(data.getSong().getTitle());
     }
 
     @Override

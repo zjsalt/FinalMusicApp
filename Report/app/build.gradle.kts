@@ -1,8 +1,13 @@
 import com.android.build.api.dsl.Packaging
 
 plugins {
+//    kotlin("android") version "1.6.10" // Use the latest version
+//    kotlin("kapt") version "1.6.10"   // Use the latest version
     id("com.android.application")
+
 }
+//apply(plugin = "kotlin-kapt")
+
 
 android {
     namespace = "tdtu.report"
@@ -53,22 +58,35 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:2.4.0")
     implementation("com.sun.mail:android-mail:1.6.7")
     implementation("com.sun.mail:android-activation:1.6.7")
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel:2.3.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata:2.3.1")
 
-    //    // Retrofit
-    //    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    //    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.room:room-rxjava2:2.4.0")
+    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams:2.4.0")
+    implementation("io.reactivex.rxjava2:rxjava:2.2.21")
+//    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
 
-    // ExoPlayer
-    implementation("com.google.android.exoplayer:exoplayer:2.15.1")
+
+
+//    implementation("com.google.android.exoplayer:exoplayer:2.15.1")
+//    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+
+
     //noinspection GradleCompatible
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
     configurations.all {
         resolutionStrategy {
             eachDependency {
                 if ((requested.group == "org.jetbrains.kotlin") && (requested.name.startsWith("kotlin-stdlib"))) {
-                    useVersion("1.9.0")
+                    useVersion("1.6.0")
                 }
             }
         }

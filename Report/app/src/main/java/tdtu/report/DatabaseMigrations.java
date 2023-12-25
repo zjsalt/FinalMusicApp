@@ -18,22 +18,26 @@ public class DatabaseMigrations {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
                 // Backup the old table
-                database.execSQL("CREATE TABLE user_backup (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, playlists TEXT, password TEXT, favoritePlaylist TEXT, email TEXT)");
+//                database.execSQL("CREATE TABLE user_backup (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, playlists TEXT, password TEXT, favoritePlaylist TEXT, email TEXT)");
 
                 // Copy data from the old table to the new one
-                database.execSQL("INSERT INTO user_backup (name, playlists, password, favoritePlaylist, email) SELECT name, playlists, password, favoritePlaylist, email FROM user");
+//                database.execSQL("INSERT INTO user_backup (name, playlists, password, favoritePlaylist, email) SELECT name, playlists, password, favoritePlaylist, email FROM user");
 
                 // Remove the old table
                 database.execSQL("DROP TABLE user");
+                database.execSQL("DROP TABLE album");
+                database.execSQL("DROP TABLE artist");
+                database.execSQL("DROP TABLE song");
+
 
                 // Create the new table with the updated schema
-                database.execSQL("CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, playlists TEXT, password TEXT, favoritePlaylist TEXT, email TEXT)");
+//                database.execSQL("CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, playlists TEXT, password TEXT, favoritePlaylist TEXT, email TEXT)");
 
                 // Copy data back from the backup table to the new one
-                database.execSQL("INSERT INTO user (id, name, playlists, password, favoritePlaylist, email) SELECT id, name, playlists, password, favoritePlaylist, email FROM user_backup");
+//                database.execSQL("INSERT INTO user (id, name, playlists, password, favoritePlaylist, email) SELECT id, name, playlists, password, favoritePlaylist, email FROM user_backup");
 
                 // Remove the backup table
-                database.execSQL("DROP TABLE user_backup");
+//                database.execSQL("DROP TABLE user_backup");
             }
         };
 }

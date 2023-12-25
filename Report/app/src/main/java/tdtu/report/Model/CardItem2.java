@@ -4,18 +4,23 @@ import android.graphics.drawable.Drawable;
 
 public class CardItem2 {
     private int imageView;
-    private String title;
+    private  Song song;
 
-    public CardItem2(int imageView, String title) {
+
+    public CardItem2(int imageView, Song song) {
         this.imageView = imageView;
-        this.title = title;
+        this.song = song;
     }
 
     public int getImageView() {
         return imageView;
     }
 
-    public String getTitle() {
-        return title;
+    public Song getSong() {
+        return song;
+    }
+
+    public void setSong(Song song) {
+        this.song = song;
     }
 }

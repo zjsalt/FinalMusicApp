@@ -5,6 +5,9 @@
       <entry key="HomeActivity">
         <State />
       </entry>
+      <entry key="LoginActivity">
+        <State />
+      </entry>
       <entry key="MainActivity">
         <State />
       </entry>
@@ -12,9 +15,6 @@
         <State />
       </entry>
       <entry key="RegisterActivity">
-        <State />
-      </entry>
-      <entry key="SongLyricsActivity">
         <State />
       </entry>
       <entry key="app">

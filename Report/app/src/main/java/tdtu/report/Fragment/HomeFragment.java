@@ -67,10 +67,10 @@ public class HomeFragment extends Fragment {
     }
     private List<CardItem2> createSampleData() {
         List<CardItem2> data = new ArrayList<>();
-        data.add(new CardItem2( R.drawable.avt, "Song 1"));
-        data.add(new CardItem2( R.drawable.avt, "Song 2"));
+//        data.add(new CardItem2( R.drawable.avt, "Song 1"));
+//        data.add(new CardItem2( R.drawable.avt, "Song 2"));
         return data;
     }
 
-    
+
 }

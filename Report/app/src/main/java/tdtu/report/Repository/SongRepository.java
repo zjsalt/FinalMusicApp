@@ -3,7 +3,6 @@ package tdtu.report.Repository;
 import java.util.List;
 
 import tdtu.report.Dao.SongDao;
-import tdtu.report.Model.Album;
 import tdtu.report.Model.Song;
 
 public class SongRepository {
@@ -13,9 +12,6 @@ public class SongRepository {
         this.songDao = songDao;
     }
 
-    public List<Song> getAllSongs() {
-        return songDao.getAllSongs();
-    }
 
     public void insertSong(Song song) {
         songDao.insert(song);
