@@ -6,20 +6,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
-
+import tdtu.report.Model.CardItem2;
 import tdtu.report.Model.Song;
 import tdtu.report.R;
-
-public class SuggestAdapter extends RecyclerView.Adapter<SuggestAdapter.ViewHolder> {
+public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
 
     List<Song> dataList;
-    public SuggestAdapter(List<Song> dataList) {
+    public DownloadAdapter(List<Song> dataList) {
         this.dataList = dataList;
     }
 
@@ -32,13 +29,9 @@ public class SuggestAdapter extends RecyclerView.Adapter<SuggestAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Song song = dataList.get(position);
-        // Get the Song object for the current position
-
-        // Set the title for the item
-
+        Song data = dataList.get(position);
 //        holder.ivSongImage.setImageResource(data.getImage());
-        holder.titleTextView.setText(song.getTitle());
+//        holder.titleTextView.setText(data.getTitle());
 //        holder.subtitleTextView.setText(data.getArtist().getId());
     }
 
@@ -60,11 +53,5 @@ public class SuggestAdapter extends RecyclerView.Adapter<SuggestAdapter.ViewHold
             titleTextView = itemView.findViewById(R.id.titleTextView);
             subtitleTextView = itemView.findViewById(R.id.subtitleTextView);
         }
-    }
-    public Song getSongAtPosition(int position) {
-        if (dataList != null && position >= 0 && position < dataList.size()) {
-            return dataList.get(position);
-        }
-        return null;
     }
 }

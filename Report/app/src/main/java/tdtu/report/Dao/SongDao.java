@@ -1,15 +1,17 @@
 package tdtu.report.Dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import tdtu.report.Model.Album;
-import tdtu.report.Model.Song;
-
 import java.util.List;
+
+import io.reactivex.Flowable;
+import tdtu.report.Model.Song;
 
 @Dao
 public interface SongDao {
@@ -18,6 +20,8 @@ public interface SongDao {
 
     @Insert
     void insert(Song song);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    long insertAndReturnId(Song song);
     @Update
     void update(Song song);
 
@@ -31,6 +35,27 @@ public interface SongDao {
     @Query("SELECT * FROM song WHERE albumId = :albumId")
     int getSongsByAlbumId(int albumId);
 
+//    @Query("SELECT audioPath FROM song")
+//    List<String> getAllSongPaths();
     @Query("SELECT audioPath FROM song")
-    List<String> getAllSongPaths();
+    Flowable<List<String>> getAllSongPaths();
+    @Query("SELECT audioPath FROM song")
+    LiveData<List<String>> getAllSongPathsLiveData();
+
+    @Query("SELECT * FROM song")
+    LiveData<List<Song>> getAllSongsLiveData();
+    @Query("SELECT * FROM song WHERE audioPath = :audioPath")
+    LiveData<Song> getSongByAudioPathLiveData(String audioPath);
+
+    @Query("SELECT * FROM song WHERE audioPath = :audioPath")
+    Song getSongByAudioPath(String audioPath);
+    @Query("SELECT * FROM song WHERE playlist = :playlist")
+    List<Song> getSongsByPlaylist(String playlist);
+
+    @Query("UPDATE song SET playlist = :newPlaylist WHERE audioPath = :audioPath")
+    void setPlaylistForSong(String audioPath, String newPlaylist);
+
+
+//    @Query("UPDATE song SET playlist = :newPlaylist")
+//    void setPlaylist(List<String> newPlaylist);
 }

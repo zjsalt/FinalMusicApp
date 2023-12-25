@@ -1,8 +1,12 @@
 package tdtu.report.Model;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import java.util.Objects;
 
 @Entity(tableName = "song")
 public class Song {
@@ -12,9 +16,27 @@ public class Song {
     private int artistId; // Thay vì Artist object, sử dụng String để lưu trữ artistId
     private int albumId;
     private String genre;
+    @NonNull
+    @ColumnInfo(name = "audioPath")
     private String audioPath;
+
+    // Other fields and getters/setters
+
+    // Add a unique constraint to the audioPath column
+
     private int duration;
     private String lyrics;
+    private String playlist;
+
+    // ... other methods
+
+    public String getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(String playlist) {
+        this.playlist = playlist;
+    }
 
 
     public String getLyrics() {
@@ -78,7 +100,7 @@ public class Song {
     public String getGenre(){
         return genre;
     }
-    public String getAudioPath(){
+    public String getAudioPath() {
         return audioPath;
     }
     public int getDuration(){
@@ -109,5 +131,19 @@ public class Song {
     public void setId(int id) {
         this.id = id;
     }
+    // Example implementation in the Song class
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Song otherSong = (Song) obj;
+        return Objects.equals(audioPath, otherSong.audioPath);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(audioPath);
+    }
+
 
 }

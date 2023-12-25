@@ -1,7 +1,6 @@
 package tdtu.report.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,7 @@ import tdtu.report.Dao.ArtistDao;
 import tdtu.report.Dao.SongDao;
 import tdtu.report.Fragment.HomeFragment;
 import tdtu.report.R;
-import tdtu.report.Repository.InsertDatabase;
+import tdtu.report.Database.InsertDatabase;
 
 public class MainActivity extends AppCompatActivity {
 

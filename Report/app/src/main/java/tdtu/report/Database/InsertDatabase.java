@@ -1,4 +1,4 @@
-package tdtu.report.Repository;
+package tdtu.report.Database;
 
 import android.os.AsyncTask;
 
@@ -13,6 +13,7 @@ public class InsertDatabase {
     private ArtistDao artistDao;
     private SongDao songDao;
     private AlbumDao albumDao;
+    private boolean isDataInserted = false;
 
     public InsertDatabase(ArtistDao artistDao, SongDao songDao, AlbumDao albumDao) {
         this.artistDao = artistDao;
@@ -21,7 +22,10 @@ public class InsertDatabase {
     }
 
     public void insertData() {
-        new InsertDataTask(artistDao, songDao, albumDao).execute();
+        if (!isDataInserted) {
+            new InsertDataTask(artistDao, songDao, albumDao).execute();
+            isDataInserted = true;
+        }
     }
 
     private static class InsertDataTask extends AsyncTask<Void, Void, Void> {
@@ -59,3 +63,5 @@ public class InsertDatabase {
         }
     }
 }
+
+

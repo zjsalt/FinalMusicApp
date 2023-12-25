@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:drawableLeft="@drawable/user"
+        android:drawableLeft="@drawable/ic_user48"
         android:ems="10"
         android:hint="Tên đăng nhập"
         android:inputType="text"
@@ -81,6 +81,7 @@
         android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="148dp"
         android:clickable="true"
         android:gravity="center"
         android:text="Đăng ký"
@@ -92,32 +93,4 @@
         app:layout_constraintTop_toBottomOf="@+id/btnRegister"
         app:layout_constraintVertical_bias="0.093" />
 
-    <ImageView
-        android:id="@+id/ivFacebookLogin"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:clickable="true"
-        android:contentDescription="Facebook Login"
-        android:onClick="onFacebookLoginClick"
-        android:src="@drawable/fb_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ivGoogleLogin"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRegister"
-        app:layout_constraintVertical_bias="0.208" />
-
-    <ImageView
-        android:id="@+id/ivGoogleLogin"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="156dp"
-        android:clickable="true"
-        android:contentDescription="Google Login"
-        android:onClick="onGoogleLoginClick"
-        android:src="@drawable/gmail_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRegister"
-        app:layout_constraintVertical_bias="0.208" />
 </androidx.constraintlayout.widget.ConstraintLayout>
