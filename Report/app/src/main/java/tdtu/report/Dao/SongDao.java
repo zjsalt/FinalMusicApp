@@ -57,6 +57,10 @@ public interface SongDao {
     @Query("SELECT title FROM song WHERE audioPath = :audioPath")
     String getSongTitleByAudioPath(String audioPath);
 
+
+    @Query("SELECT * FROM song LIMIT 1")
+    Song getFirstSong();
+
 //    @Query("UPDATE song SET playlist = :newPlaylist")
 //    void setPlaylist(List<String> newPlaylist);
 }

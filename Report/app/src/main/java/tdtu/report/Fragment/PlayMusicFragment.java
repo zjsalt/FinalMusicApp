@@ -1,6 +1,5 @@
 package tdtu.report.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +21,7 @@ import tdtu.report.Database.AppPreferences;
 import tdtu.report.R;
 import tdtu.report.Utils.MusicUtil;
 import tdtu.report.Utils.PlaylistUtil;
+import tdtu.report.ViewModel.MusicSharedViewModel;
 import tdtu.report.ViewModel.MusicViewModel;
 
 public class PlayMusicFragment extends Fragment {
@@ -29,14 +29,20 @@ public class PlayMusicFragment extends Fragment {
     private MusicUtil musicUtil;
     private MusicViewModel musicViewModel;
     private PlaylistUtil playlistUtil;
-    private ImageButton ibPlaySong, ibPreSong, ibPosSong, down, ibLikeSong, ibRandomSong;
+    private ImageButton ibPlaySong, ibPreSong, ibPosSong, down, ibLikeSong, ibRandomSong, ibRepeatSong;
     private AppPreferences appPreferences;
+    private MusicSharedViewModel musicSharedViewModel;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.play_music, container, false);
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.play_music, container, false);
+    }
+
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        musicSharedViewModel = new ViewModelProvider(requireActivity()).get(MusicSharedViewModel.class);
+
+        musicViewModel = new ViewModelProvider(requireActivity()).get(MusicViewModel.class);
 
         // Initialize UI elements and set up event listeners
         ibPlaySong = view.findViewById(R.id.ibPlaySong);
@@ -45,40 +51,28 @@ public class PlayMusicFragment extends Fragment {
         down = view.findViewById(R.id.ibDownloadSong);
         ibLikeSong = view.findViewById(R.id.ibLikeSong);
         ibRandomSong = view.findViewById(R.id.ibRandomSong);
+        ibRepeatSong = view.findViewById(R.id.ibRepeatSong);
         SeekBar seekBar = view.findViewById(R.id.seekBar);
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         TextView start = view.findViewById(R.id.start);
         TextView end = view.findViewById(R.id.end);
 
-        musicViewModel = new ViewModelProvider(this).get(MusicViewModel.class);
+        int position = getArguments().getInt("position", -1);
+        String path = getArguments().getString("audioPath");
 
-        // Trong PlayMusicFragment
-        int position = requireActivity().getIntent().getIntExtra("position", -1);
-        String path = requireActivity().getIntent().getStringExtra("audioPath");
-
-        Intent intent = requireActivity().getIntent();
-        if (intent != null && intent.hasExtra("audioPath")) {
-            String audioPath = intent.getStringExtra("audioPath");
-            // Observe changes in the playlist LiveData and update PlaylistUtil accordingly
+        if (getArguments() != null && getArguments().containsKey("audioPath")) {
+            String audioPath = getArguments().getString("audioPath");
             musicViewModel.getPlaylist().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
                 @Override
                 public void onChanged(List<String> result) {
                     if (result != null) {
                         playlistUtil = new PlaylistUtil(result);
-
-                        // Set the current song in PlaylistUtil to the selected song
                         playlistUtil.playNext();
                         playlistUtil.playPrevious();
-
-                        // Create a new instance of MusicUtil and pass the PlaylistUtil
                         musicUtil = new MusicUtil(requireContext(), position, audioPath, playlistUtil, ibPlaySong, tvTitle, seekBar, start, end, ibLikeSong, musicViewModel);
                         musicUtil.playMusic();
-
-                        // Update the TextViews from SeekBar
                         MusicUtil.updateTextViewsFromSeekBar(seekBar, start, end);
                     } else {
-                        // Handle the case where the playlist is null
-                        // You may want to show an error message or take appropriate action
                         Toast.makeText(requireContext(), "Playlist is null", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -122,12 +116,10 @@ public class PlayMusicFragment extends Fragment {
             }
         });
 
-        // Set up the click listener for the download button
         down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (musicUtil != null) {
-                    // Call the downloadCurrentSong method when the download button is clicked
                     musicUtil.downloadCurrentSong();
                 } else {
                     Toast.makeText(requireContext(), "music null", Toast.LENGTH_SHORT).show();
@@ -135,21 +127,16 @@ public class PlayMusicFragment extends Fragment {
             }
         });
 
-
         appPreferences = AppPreferences.getInstance(requireContext());
 
-        // Lấy email của người dùng đã đăng nhập từ SharedPreferences
         String loggedInUserEmail = appPreferences.getLoggedInUserEmail();
         ibLikeSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (musicUtil != null) {
-                    // Call the addSongToFavorites method when the "Like" button is clicked
                     musicUtil.addOrRemoveSongFromFavorites();
                 }
             }
         });
-
-        return view;
     }
 }

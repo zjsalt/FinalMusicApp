@@ -1,7 +1,5 @@
 package tdtu.report.Model;
 
-import android.media.Image;
-
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,7 +8,7 @@ import java.util.List;
 @Entity(tableName = "playlist")
 public class Playlist {
     @PrimaryKey(autoGenerate = true)
-    private int id; // Change the data type to String
+    private int id;
     private String name;
     private List<Song> songs;
 

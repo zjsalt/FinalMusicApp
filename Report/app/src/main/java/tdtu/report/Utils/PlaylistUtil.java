@@ -1,5 +1,4 @@
 package tdtu.report.Utils;
-
 import java.util.List;
 
 public class PlaylistUtil {
@@ -31,7 +30,7 @@ public class PlaylistUtil {
         if (currentPosition < playlist.size() - 1) {
             currentPosition++;
         } else {
-            currentPosition = 0; // Stop playback if it's the last song
+            currentPosition = 0; // Loop back to the first song if it's the last song
         }
     }
 
@@ -54,5 +53,16 @@ public class PlaylistUtil {
             }
         }
         return -1; // Return -1 if the audioPath is not found in the playlist
+    }
+
+    public boolean hasNext() {
+        return currentPosition < playlist.size() - 1;
+    }
+
+    public void playFirst() {
+        currentPosition = 0;
+    }
+    public void resetCurrentPosition() {
+        currentPosition = 0;
     }
 }

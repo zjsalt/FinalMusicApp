@@ -193,8 +193,10 @@
 
                     </androidx.recyclerview.widget.RecyclerView>
                 </HorizontalScrollView>
+
             </LinearLayout>
         </ScrollView>
+
 
     </LinearLayout>
 

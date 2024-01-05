@@ -2,6 +2,7 @@ package tdtu.report.ViewModel;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -42,6 +43,7 @@ public class LoginViewModel extends ViewModel {
         return loggedInUser;
     }
 
+
     public void loginUser(String email, String password) {
         new LoginAsyncTask(userDao, loginResult, loggedInUser,appPreferences).execute(email, password);
     }
@@ -64,7 +66,8 @@ public class LoginViewModel extends ViewModel {
         protected User doInBackground(String... credentials) {
             String email = credentials[0];
             String password = credentials[1];
-
+            Log.d("LoginAsyncTask", "Email: " + email);
+            Log.d("LoginAsyncTask", "Password: " + password);
             // Retrieve user by email and password
             User user = userDao.getUserByEmailAndPassword(email, password);
 

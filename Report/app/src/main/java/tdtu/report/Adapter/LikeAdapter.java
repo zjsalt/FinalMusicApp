@@ -6,11 +6,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
-import tdtu.report.Model.CardItem2;
+
 import tdtu.report.Model.Song;
 import tdtu.report.R;
 public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.ViewHolder> {
@@ -31,7 +33,9 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Song data = dataList.get(position);
 //        holder.ivSongImage.setImageResource(data.getImage());
-//        holder.titleTextView.setText(data.getTitle());
+        String songTitle = data.getTitle();
+
+        holder.titleTextView.setText(data.getTitle());
 //        holder.subtitleTextView.setText(data.getArtist().getId());
     }
 
@@ -53,5 +57,6 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.ViewHolder> {
             titleTextView = itemView.findViewById(R.id.titleTextView);
             subtitleTextView = itemView.findViewById(R.id.subtitleTextView);
         }
+
     }
 }

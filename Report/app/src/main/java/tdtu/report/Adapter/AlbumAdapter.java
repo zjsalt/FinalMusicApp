@@ -13,14 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import tdtu.report.Model.CardItem2;
-import tdtu.report.Model.Song;
+import tdtu.report.Model.Album;
 import tdtu.report.R;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
 
-    List<Song> dataList;
-    public AlbumAdapter(List<Song> dataList) {
+    List<Album> dataList;
+    public AlbumAdapter(List<Album> dataList) {
         this.dataList = dataList;
     }
 
@@ -33,7 +32,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Song data = dataList.get(position);
+        Album data = dataList.get(position);
 //        holder.ivSongImage.setImageResource(data.getImage());
 //        holder.titleTextView.setText(data.getTitle());
 //        holder.subtitleTextView.setText(data.getArtist().getId());

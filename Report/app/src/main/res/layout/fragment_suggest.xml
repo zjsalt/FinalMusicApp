@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.SuggestFragment"
     android:padding="10dp"
     android:id="@+id/flSuggest">
@@ -15,24 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đề xuất"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
-            <TextView
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
-            <ImageButton
-                android:id="@+id/ibSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_search"
-                android:background="@color/white"/>
+                app:queryHint="Tìm bài hát"
+                android:background="@drawable/item"
+                app:iconifiedByDefault="false"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
 
         <ScrollView
@@ -42,7 +37,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSuggestSong"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
         </ScrollView>
     </LinearLayout>
 
